@@ -50,9 +50,18 @@
                                 href="{{route('users.index', 'page=' . ($users->page - 1))}}">Previous</a>
                         </li>
 
-                        <li class="page-item {{$users->page == $users->total_pages ? 'disabled' : ''}}">
-                            <a class="page-link" href="{{route('users.index', 'page=' . ($users->page + 1))}}">Next</a>
-                        </li>
+                        @if ($users->page>0)
+                        @for($i =0; $i< $users->total_pages;$i++)
+                            <li class="page-item {{($users->page == ($i+1)) ? 'disabled' : ''}}">
+                                <a class="page-link" href="{{route('users.index', 'page=' . ($i+1))}}">{{$i+1}}</a>
+                            </li>
+                            @endfor
+                            @endif
+
+                            <li class="page-item {{$users->page == $users->total_pages ? 'disabled' : ''}}">
+                                <a class="page-link"
+                                    href="{{route('users.index', 'page=' . ($users->page + 1))}}">Next</a>
+                            </li>
                     </ul>
                 </div>
             </div>
