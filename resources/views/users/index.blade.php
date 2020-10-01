@@ -4,12 +4,17 @@
 <div class="container">
     <div class="row justify-content-center">
         <div class="col-md-8">
+
+            @include('layouts.alert')
+
             <div class="card">
                 <div class="card-header">{{ __('Users') }}</div>
 
                 <div class="card-body">
 
-                    <div class="table-responsive">
+                    <a href="{{ route('users.create') }}" class="btn btn-success">New User</a>
+
+                    <div class="table-responsive mt-3">
                         <table class="table table-striped">
                             <thead>
                                 <tr>
