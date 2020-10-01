@@ -5,6 +5,7 @@ namespace Tests\Unit\Controllers;
 use App\Http\Controllers\UserController;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Http;
+use Illuminate\View\View;
 use Tests\TestCase;
 
 class UserControllerTest extends TestCase
@@ -27,5 +28,7 @@ class UserControllerTest extends TestCase
             ->andReturn($testObject);
         $response = $this->userController->index($request);
         $this->assertEquals(['users' => $testObject], $response->getData());
+        $this->assertEquals('users.index', $response->getName());
+        $this->assertInstanceOf(View::class, $response);
     }
 }
