@@ -38,4 +38,17 @@ class UserControllerTest extends TestCase
         $this->assertEquals('users.create', $response->getName());
         $this->assertInstanceOf(View::class, $response);
     }
+
+    public function testShow()
+    {
+        $testObject = (object)['data' => 'test'];
+        Http::shouldReceive('get->object')->once()
+            ->with('https://reqres.in/api/users/101')
+            ->withNoArgs()
+            ->andReturn($testObject);
+        $response = $this->userController->show(101);
+        $this->assertEquals(['user' => 'test'], $response->getData());
+        $this->assertEquals('users.show', $response->getName());
+        $this->assertInstanceOf(View::class, $response);
+    }
 }
