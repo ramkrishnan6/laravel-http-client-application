@@ -89,7 +89,10 @@ class UserController extends Controller
      */
     public function edit($id)
     {
-        //
+        $response = Http::get('https://reqres.in/api/users/' . $id);
+
+        $user = $response->object()->data;
+        return view('users.edit', compact('user'));
     }
 
     /**
@@ -101,7 +104,18 @@ class UserController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        $validated = $this->validate($request, [
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
+            'email' => 'required|email',
+        ]);
+
+        $response = Http::put('https://reqres.in/api/users/' . $id, $validated);
+
+        $status = ($response->status() == 200) ? 'success' : 'fail';
+
+        session()->flash($status, "User $id updated $status.");
+        return redirect()->action([UserController::class, 'edit'], ['user' => $id]);
     }
 
     /**
