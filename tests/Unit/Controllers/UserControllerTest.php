@@ -18,7 +18,7 @@ class UserControllerTest extends TestCase
         $this->userController = new UserController();
     }
 
-    public function testIndexMethod()
+    public function testIndex()
     {
         $request = new Request(['page' => 'test-page']);
         $testObject = (object)['testKey' => 'testValue'];
@@ -29,6 +29,13 @@ class UserControllerTest extends TestCase
         $response = $this->userController->index($request);
         $this->assertEquals(['users' => $testObject], $response->getData());
         $this->assertEquals('users.index', $response->getName());
+        $this->assertInstanceOf(View::class, $response);
+    }
+
+    public function testCreate()
+    {
+        $response = $this->userController->create();
+        $this->assertEquals('users.create', $response->getName());
         $this->assertInstanceOf(View::class, $response);
     }
 }
