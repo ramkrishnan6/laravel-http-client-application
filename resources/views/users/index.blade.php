@@ -37,13 +37,9 @@
                                     <td>
                                         <a class="btn btn-sm btn-primary"
                                             href="{{ route('users.show', $user->id) }}">Show</a>
-                                        <hr />
                                         <a class="btn btn-sm btn-secondary"
                                             href="{{ route('users.edit', $user->id) }}">Edit</a>
                                     </td>
-
-
-
                                 </tr>
                                 @endforeach
                             </tbody>
@@ -56,10 +52,11 @@
                                 href="{{route('users.index', 'page=' . ($users->page - 1))}}">Previous</a>
                         </li>
 
-                        @if ($users->page>0)
-                        @for($i =0; $i< $users->total_pages;$i++)
-                            <li class="page-item {{($users->page == ($i+1)) ? 'disabled' : ''}}">
-                                <a class="page-link" href="{{route('users.index', 'page=' . ($i+1))}}">{{$i+1}}</a>
+                        @if ($users->page > 0)
+                        @for($page = 0; $page < $users->total_pages; $page++)
+                            <li class="page-item {{$users->page == ($page + 1) ? 'disabled' : ''}}">
+                                <a class="page-link"
+                                    href="{{route('users.index', 'page=' . ($page + 1))}}">{{$page + 1}}</a>
                             </li>
                             @endfor
                             @endif
