@@ -33,6 +33,7 @@ class UserController extends Controller
     public function create()
     {
         //
+        return view('users.create');
     }
 
     /**
@@ -44,6 +45,24 @@ class UserController extends Controller
     public function store(Request $request)
     {
         //
+        $this->validate($request, [
+            'first_name' => 'required|string',
+            'last_name' => 'required|string',
+            'email' => 'required|email',
+        ]);
+
+        $response = Http::post('https://reqres.in/api/users', [
+            'first_name' => $request->first_name,
+            'last_name' => $request->last_name,
+            'email' => $request->email,
+        ]);
+
+        if ($response->successful()) {
+            $user = $response->object();
+            return redirect()->route('users.index')->with('success', 'User ' . $user->id . ' created');
+        }
+
+        return redirect()->back();
     }
 
     /**
