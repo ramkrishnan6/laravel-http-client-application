@@ -22,7 +22,7 @@
                                     <th scope="col">First Name</th>
                                     <th scope="col">Last Name</th>
                                     <th scope="col">Email</th>
-                                    <th scope="col">Options</th>
+                                    <th scope="col" colspan=2>Options</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -37,7 +37,13 @@
                                     <td>
                                         <a class="btn btn-sm btn-primary"
                                             href="{{ route('users.show', $user->id) }}">Show</a>
+                                        <hr />
+                                        <a class="btn btn-sm btn-secondary"
+                                            href="{{ route('users.edit', $user->id) }}">Edit</a>
                                     </td>
+
+
+
                                 </tr>
                                 @endforeach
                             </tbody>
