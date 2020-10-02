@@ -126,6 +126,12 @@ class UserController extends Controller
      */
     public function destroy($id)
     {
-        //
+        $response = Http::delete('https://reqres.in/api/users/' . $id);
+
+        $status = ($response->status() == 204) ? 'success' : 'fail';
+
+        session()->flash($status, "User $id deleted $status.");
+
+        return redirect()->action([UserController::class, 'index'], ['user' => $id]);
     }
 }

@@ -39,6 +39,11 @@
                                             href="{{ route('users.show', $user->id) }}">Show</a>
                                         <a class="btn btn-sm btn-secondary"
                                             href="{{ route('users.edit', $user->id) }}">Edit</a>
+                                        <form action="{{ route('users.destroy', $user->id) }}" method="POST" style="display: inline">
+                                            @method('delete')
+                                            @csrf
+                                            <button type="submit" class="btn btn-sm btn-danger">Delete</button>
+                                        </form>
                                     </td>
                                 </tr>
                                 @endforeach
